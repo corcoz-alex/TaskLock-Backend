@@ -20,8 +20,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # 3. These are the exact commands the robot will type on your server
           script: |
-            cd /var/www/tracklock-backend
+            cd /var/www/tasklock-backend
             git pull origin main
             source .venv/bin/activate
             pip install -r requirements.txt
-            systemctl restart tracklock
+            systemctl restart tasklock
