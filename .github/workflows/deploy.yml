@@ -1,0 +1,26 @@
+name: Deploy to DigitalOcean
+
+# 1. When does this run? Every time you push to 'main'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into server and deploy
+        # 2. We use a pre-built highly optimized community tool for SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # 3. These are the exact commands the robot will type on your server
+          script: |
+            cd /var/www/tracklock-backend
+            git pull origin main
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            systemctl restart tracklock
