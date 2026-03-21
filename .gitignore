@@ -1,0 +1,47 @@
+# =========================
+# Secrets & Configuration
+# =========================
+# CRITICAL: Never commit environment variables or secrets.
+.env
+.env.*
+
+# =========================
+# Python & Environment
+# =========================
+# Ignore compiled bytecode (makes the repo messy)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore virtual environments (these are rebuilt via requirements.txt)
+venv/
+env/
+ENV/
+
+# =========================
+# IDEs & Editors
+# =========================
+# Ignore PyCharm specific settings
+.idea/
+
+# Ignore VS Code specific settings (just in case you switch editors later)
+.vscode/
+
+# =========================
+# OS Generated Files
+# =========================
+# Ignore Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore macOS folder attributes (good practice even if you are on Windows 11)
+.DS_Store
+
+# =========================
+# Testing & Logs
+# =========================
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
