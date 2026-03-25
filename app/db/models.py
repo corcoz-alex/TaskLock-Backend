@@ -12,7 +12,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    relationship("Task", back_populates="owner")
+    task = relationship("Task", back_populates="owner")
 
 class Task(Base):
     __tablename__ = "tasks"
