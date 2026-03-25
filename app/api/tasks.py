@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from deps import get_current_user
+
 from app.db.database import get_db
+from app.api.deps import get_current_user
 from app.db.models import User
 from app.schemas.task import TaskCreate, TaskResponse, TaskUpdate
 from app.repositories import task_repo
