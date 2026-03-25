@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from app.core.config import settings
 from app.db.database import engine, Base
-from app.db import models
-from app.api import users
-from app.api import auth
+from app.api import auth, users, tasks
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -16,6 +14,7 @@ app = FastAPI(
 
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["Authentication"])
 app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["Users"])
+app.include_router(tasks.router, prefix = f"{settings.API_V1_STR}/tasks", tags=["Tasks"])
 
 @app.get("/health", tags=["System"])
 def health_check():
