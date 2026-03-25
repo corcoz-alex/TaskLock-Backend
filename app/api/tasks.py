@@ -8,10 +8,7 @@ from app.db.models import User
 from app.schemas.task import TaskCreate, TaskResponse, TaskUpdate
 from app.repositories import task_repo
 
-router = APIRouter(
-    prefix="api/v1/tasks",
-    tags=["Tasks"]
-)
+router = APIRouter()
 
 @router.get("", response_model=List[TaskResponse])
 def read_tasks(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
