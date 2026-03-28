@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 import jwt
 
 from app.core.config import settings
-from app.core.security import ALGORITHM
 from app.db.database import get_db
 from app.db.models import User
 from app.repositories import user_repo
@@ -20,13 +19,12 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     )
 
     try:
-        # Decode the JWT token to get the user ID
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
 
-        # Extract the user ID
-        user_id: str = payload.get("sub")
-        if user_id is None:
+        subject = payload.get("sub")
+        if subject is None:
             raise credentials_exception
+        user_id = int(subject)
     except jwt.ExpiredSignatureError:
         # Handle expired token
         raise HTTPException(
@@ -34,10 +32,10 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             detail="Token has expired. Please log in again.",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    except jwt.InvalidTokenError:
+    except (jwt.InvalidTokenError, ValueError, TypeError):
         # Handle tampered / invalid token
         raise credentials_exception
-    user = user_repo.get_user_by_id(db, int(user_id))
+    user = user_repo.get_user_by_id(db, user_id)
     if user is None:
         raise credentials_exception
 

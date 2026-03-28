@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -31,4 +31,4 @@ def delete_task(task_id: int, db: Session = Depends(get_db), current_user: User 
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
     task_repo.delete_task(db=db, db_task=db_task)
-    return {"message": "Task deleted successfully"}
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

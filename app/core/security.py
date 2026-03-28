@@ -1,10 +1,9 @@
 import secrets
+import hashlib
 import bcrypt
 from datetime import datetime, timedelta, timezone
 import jwt
 from app.core.config import settings
-
-ALGORITHM = "HS256"
 
 
 def get_password_hash(password: str) -> str:
@@ -46,6 +45,11 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
         algorithm=settings.ALGORITHM
     )
     return encoded_jwt
+
+
+def hash_refresh_token(refresh_token: str) -> str:
+    return hashlib.sha256(refresh_token.encode("utf-8")).hexdigest()
+
 
 def create_refresh_token() -> str:
     return secrets.token_urlsafe(32)

@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 # IMPORTANT: Keep the revision ID that was generated in your file!
-revision: str = 'YOUR_GENERATED_REVISION_ID'
+revision: str = '942e6c80766f'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
