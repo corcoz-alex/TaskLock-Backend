@@ -11,8 +11,10 @@ class TaskCreate(TaskBase):
     pass
 
 # Sent by Android to update a task
-class TaskUpdate(TaskBase):
-    pass
+class TaskUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    is_completed: bool | None = None
 
 # Sent by FastAPI to Android when returning a task
 class TaskResponse(TaskBase):
