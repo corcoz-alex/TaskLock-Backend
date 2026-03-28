@@ -22,8 +22,11 @@ jobs:
           script: |
             set -e
             cd /var/www/tasklock-backend
+            
             git pull origin main
-            source .venv/bin/activate
-            pip install -r requirements.txt
-            alembic upgrade head
+            
+            ./.venv/bin/pip install -r requirements.txt
+            
+            ./.venv/bin/alembic upgrade head
+            
             systemctl restart tasklock
