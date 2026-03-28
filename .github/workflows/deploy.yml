@@ -20,8 +20,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # 3. These are the exact commands the robot will type on your server
           script: |
+            set -e
             cd /var/www/tasklock-backend
             git pull origin main
             source .venv/bin/activate
             pip install -r requirements.txt
+            alembic upgrade head
             systemctl restart tasklock
